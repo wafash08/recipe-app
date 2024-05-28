@@ -1,13 +1,13 @@
 import Link from 'next/link';
-import Container from './container';
+import Container from '../container';
 
 export default function ForYouSection() {
 	return (
-		<section className='relative mb-40'>
+		<section className='relative mt-14'>
 			<Container>
 				<div className='mb-20'>
 					<div className='flex items-center gap-5'>
-						<div className='bg-[#EFC81A] w-6 h-32 rounded-sm' />
+						<div className='bg-[#EFC81A] w-6 h-32' />
 						<h2 className='text-5xl text-[#2E266F]'>Popular For You!</h2>
 					</div>
 				</div>

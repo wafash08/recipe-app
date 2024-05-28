@@ -4,7 +4,7 @@ import Container from './container';
 export default function Layout({ children }) {
 	return (
 		<main className='font-airbnb bg-[#FFF5EC] min-h-screen flex flex-col w-full'>
-			<header className='fixed top-0 left-0 w-full h-24 flex items-center bg-transparent z-50'>
+			<header className='fixed top-0 left-0 w-full h-24 flex items-center bg-white/20 z-50 backdrop-blur'>
 				<Container>
 					<nav className='flex justify-between'>
 						<ul className='flex items-center gap-20'>
@@ -53,7 +53,7 @@ export default function Layout({ children }) {
 									</svg>
 									<div className='w-4 h-4 rounded-full bg-[#31A24C] absolute right-0 top-0' />
 								</div>
-								<span className='text-white'>Login</span>
+								<span className='text-[#2E266F]'>Login</span>
 							</Link>
 						</div>
 					</nav>
