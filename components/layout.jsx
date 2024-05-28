@@ -60,6 +60,43 @@ export default function Layout({ children }) {
 				</Container>
 			</header>
 			{children}
+			<footer className='bg-[#EFC81A] w-full h-[600px] py-14 relative'>
+				<Container className='flex flex-col items-center justify-center h-full'>
+					<section className='text-center'>
+						<h3 className='text-[#2E266F] text-7xl font-bold mb-14'>
+							Eat, Cook, Repeat
+						</h3>
+						<p className='text-[#707070] text-2xl'>
+							Share your best recipe by uploading here !
+						</p>
+					</section>
+
+					<nav className='text-[#707070] absolute bottom-14 left-1/2 -translate-x-1/2'>
+						<ul className='flex items-center gap-10'>
+							<li>
+								<Link className='hover:underline' href='/products'>
+									Product
+								</Link>
+							</li>
+							<li>
+								<Link className='hover:underline' href='/about'>
+									Company
+								</Link>
+							</li>
+							<li>
+								<Link className='hover:underline' href='/learn-more'>
+									Learn More
+								</Link>
+							</li>
+							<li>
+								<Link className='hover:underline' href='/contact'>
+									Get in Touch
+								</Link>
+							</li>
+						</ul>
+					</nav>
+				</Container>
+			</footer>
 		</main>
 	);
 }

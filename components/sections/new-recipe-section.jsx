@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import Container from '../container';
+import clsx from 'clsx';
 
 export default function NewRecipeSection() {
 	return (
@@ -17,7 +18,7 @@ export default function NewRecipeSection() {
 						<div className='absolute -top-14 -left-1/2 w-full h-full bg-[#EFC81A]' />
 						<div className='w-full h-full overflow-hidden rounded-xl'>
 							<img
-								src='/images/popular-recipe-1.png'
+								src='/images/bone-broth-ramen.png'
 								alt='Healthy Bone Broth Ramen (Quick & Easy)'
 								className='relative z-10 w-full h-full object-cover'
 							/>
@@ -35,7 +36,10 @@ export default function NewRecipeSection() {
 						</p>
 						<Link
 							href='/recipes/healthy-bone'
-							className='inline-flex items-center justify-center w-52 h-16 bg-[#EFC81A] rounded-lg font-medium text-white'
+							className={clsx(
+								'inline-flex items-center justify-center w-52 h-16 bg-[#EFC81A] rounded-lg font-medium text-white border border-transparent',
+								'transition-colors hover:bg-transparent hover:text-[#EFC81A] hover:border-[#EFC81A]'
+							)}
 						>
 							Learn More
 						</Link>
