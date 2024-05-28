@@ -4,7 +4,7 @@ import Container from './container';
 export default function Layout({ children }) {
 	return (
 		<main className='font-airbnb bg-[#FFF5EC] min-h-screen flex flex-col w-full'>
-			<header className='fixed top-0 left-0 w-full h-24 flex items-center bg-transparent'>
+			<header className='fixed top-0 left-0 w-full h-24 flex items-center bg-transparent z-50'>
 				<Container>
 					<nav className='flex justify-between'>
 						<ul className='flex items-center gap-20'>

@@ -1,13 +1,9 @@
-import Container from '@/components/container';
+import HeroSection from '@/components/hero-section';
 
 export default function Home() {
 	return (
 		<>
-			<section className='min-h-screen border border-red-500'>
-				<Container>
-					<h1>Hello world!</h1>
-				</Container>
-			</section>
+			<HeroSection />
 		</>
 	);
 }
