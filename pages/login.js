@@ -36,6 +36,7 @@ export default function Login() {
 								id='email'
 								name='email'
 								placeholder='Enter your email address'
+								required
 							/>
 							<Input
 								label='Password'
@@ -43,6 +44,7 @@ export default function Login() {
 								id='password'
 								name='password'
 								placeholder='Password'
+								required
 							/>
 							{/* <div className='flex items-center gap-4'>
 								<input
@@ -70,14 +72,17 @@ export default function Login() {
 								Login
 							</button>
 							<Link
-								href='/forget-password'
-								className='block text-[#999999] text-right'
+								href='/forgot-password'
+								className='block text-[#999999] text-right hover:underline'
 							>
 								Forgot Password ?
 							</Link>
 							<p className='text-[#8692A6]'>
 								Don't have an account?{' '}
-								<Link href='/login' className='text-[#EFC81A] hover:underline'>
+								<Link
+									href='/register'
+									className='text-[#EFC81A] hover:underline'
+								>
 									Sign Up Here
 								</Link>
 							</p>

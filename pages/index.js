@@ -5,7 +5,6 @@ import PopularSection from '@/components/sections/popular-section';
 import { getRecipeList } from '@/lib/recipes';
 
 export default function Home({ recipes }) {
-	console.log('recipes in component >> ', recipes);
 	return (
 		<>
 			<HeroSection />
