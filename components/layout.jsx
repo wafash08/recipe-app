@@ -1,7 +1,18 @@
 import Link from 'next/link';
 import Container from './container';
+import { useRouter } from 'next/router';
 
-export default function Layout({ children }) {
+export default function Layout({ children, pagesExcluded }) {
+	const { route } = useRouter();
+
+	if (pagesExcluded.includes(route)) {
+		return (
+			<main className='font-airbnb bg-white min-h-screen flex flex-col w-full'>
+				{children}
+			</main>
+		);
+	}
+
 	return (
 		<main className='font-airbnb bg-[#FFF5EC] min-h-screen flex flex-col w-full'>
 			<Header />
