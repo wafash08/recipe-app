@@ -59,7 +59,7 @@ export default function HeroSection() {
 							fill='none'
 							xmlns='http://www.w3.org/2000/svg'
 							aria-hidden='true'
-							className='absolute left-0 top-0'
+							className='hidden lg:block absolute left-0 top-0'
 						>
 							<circle cx='5.89939' cy='6.08225' r='5.89939' fill='#E6E6E6' />
 							<circle cx='5.89939' cy='44.1006' r='5.89939' fill='#E6E6E6' />

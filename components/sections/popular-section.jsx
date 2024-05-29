@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import Container from '../container';
+import { isImageValid } from '@/helpers';
 
 export default function PopularSection({ recipes }) {
 	return (
@@ -16,6 +17,8 @@ export default function PopularSection({ recipes }) {
 
 				<ul className='grid md:grid-cols-2 lg:grid-cols-3 gap-10'>
 					{recipes.map(({ id, image, title }) => {
+						const isValid = image ? isImageValid(image) : false;
+
 						return (
 							<li
 								key={id}
@@ -24,13 +27,15 @@ export default function PopularSection({ recipes }) {
 								<Link href={`/recipes/${id}`} className='block relative'>
 									<div className='overflow-hidden h-full'>
 										<img
-											src={image ? image : '/images/sugar-salmon.png'}
+											src={isValid ? image : '/images/sugar-salmon.png'}
 											alt={title}
 											className='object-cover h-full w-full group-hover:scale-105 transition-transform duration-500'
 										/>
 									</div>
 									<div className='absolute bottom-0 left-0 h-1/2 w-full bg-gradient-to-b from-transparent to-black/50 flex items-end p-10'>
-										<p className='text-3xl text-[#FFF5EC] font-bold'>{title}</p>
+										<p className='text-3xl text-[#FFF5EC] font-bold capitalize'>
+											{title}
+										</p>
 									</div>
 								</Link>
 							</li>
