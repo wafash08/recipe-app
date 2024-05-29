@@ -1,8 +1,7 @@
 import Link from 'next/link';
 import Container from '../container';
-import { POPULAR_LIST } from '@/data';
 
-export default function PopularSection() {
+export default function PopularSection({ recipes }) {
 	return (
 		<section className='mt-24 mb-32 lg:mb-40'>
 			<Container>
@@ -16,22 +15,22 @@ export default function PopularSection() {
 				</div>
 
 				<ul className='grid md:grid-cols-2 lg:grid-cols-3 gap-10'>
-					{POPULAR_LIST.map(({ id, image, name, slug }) => {
+					{recipes.map(({ id, image, title }) => {
 						return (
 							<li
 								key={id}
 								className='group rounded-2xl h-[400px] md:h-[450px] overflow-hidden flex'
 							>
-								<Link href={`/recipes/${slug}`} className='block relative'>
+								<Link href={`/recipes/${id}`} className='block relative'>
 									<div className='overflow-hidden h-full'>
 										<img
-											src={image}
-											alt={name}
+											src={image ? image : '/images/sugar-salmon.png'}
+											alt={title}
 											className='object-cover h-full w-full group-hover:scale-105 transition-transform duration-500'
 										/>
 									</div>
 									<div className='absolute bottom-0 left-0 h-1/2 w-full bg-gradient-to-b from-transparent to-black/50 flex items-end p-10'>
-										<p className='text-3xl text-[#FFF5EC] font-bold'>{name}</p>
+										<p className='text-3xl text-[#FFF5EC] font-bold'>{title}</p>
 									</div>
 								</Link>
 							</li>
