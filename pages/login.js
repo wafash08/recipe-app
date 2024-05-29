@@ -1,8 +1,33 @@
-import Input from '@/components/input';
-import clsx from 'clsx';
+import { useState } from 'react';
+import { useRouter } from 'next/router';
 import Link from 'next/link';
+import clsx from 'clsx';
+import Input from '@/components/input';
+import { login } from '@/lib/auth';
 
 export default function Login() {
+	const [error, setError] = useState(null);
+	const router = useRouter();
+
+	const handleLogin = async e => {
+		try {
+			e.preventDefault();
+			const formData = new FormData(e.target);
+			const user = Object.fromEntries(formData);
+			const response = await login(user);
+			if (response.ok) {
+				const user = await response.json();
+				localStorage.setItem('token', user.data.token);
+				router.push('/');
+			}
+		} catch (error) {
+			setError(error.message);
+			setTimeout(() => {
+				setError(null);
+			}, 3000);
+		}
+	};
+
 	return (
 		<div className='flex min-h-screen'>
 			<div
@@ -28,7 +53,7 @@ export default function Login() {
 				</div>
 
 				<div className='flex justify-center'>
-					<form className='w-full max-w-lg'>
+					<form className='w-full max-w-lg' onSubmit={handleLogin}>
 						<div className='space-y-6'>
 							<Input
 								label='Email'
@@ -61,6 +86,12 @@ export default function Login() {
 								</label>
 							</div> */}
 						</div>
+
+						{error && (
+							<p className='text-red-500 mt-6' role='alert'>
+								{error}
+							</p>
+						)}
 
 						<div className='mt-10 space-y-6 text-center'>
 							<button

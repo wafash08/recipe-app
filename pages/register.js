@@ -1,8 +1,31 @@
-import Input from '@/components/input';
-import clsx from 'clsx';
+import { useState } from 'react';
 import Link from 'next/link';
+import { useRouter } from 'next/router';
+import clsx from 'clsx';
+import Input from '@/components/input';
+import { register } from '@/lib/auth';
 
 export default function Register() {
+	const [error, setError] = useState(null);
+	const router = useRouter();
+
+	const handleRegister = async e => {
+		try {
+			e.preventDefault();
+			const formData = new FormData(e.target);
+			const user = Object.fromEntries(formData);
+			const response = await register(user);
+			if (response.ok) {
+				router.push('/login');
+			}
+		} catch (error) {
+			setError(error.message);
+			setTimeout(() => {
+				setError(null);
+			}, 3000);
+		}
+	};
+
 	return (
 		<div className='flex min-h-screen'>
 			<div
@@ -30,7 +53,7 @@ export default function Register() {
 				</div>
 
 				<div className='flex justify-center'>
-					<form className='w-full max-w-lg'>
+					<form className='w-full max-w-lg' onSubmit={handleRegister}>
 						<div className='space-y-6'>
 							<Input
 								label='Name'
@@ -65,6 +88,12 @@ export default function Register() {
 								required
 							/>
 						</div>
+
+						{error && (
+							<p className='text-red-500 mt-6' role='alert'>
+								{error}
+							</p>
+						)}
 
 						<div className='mt-10 space-y-6 text-center'>
 							<button
