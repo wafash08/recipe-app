@@ -5,7 +5,7 @@ export default function ResetPassword() {
 	return (
 		<div className='flex min-h-screen'>
 			<div
-				className='relative flex-1 flex items-center justify-center bg-no-repeat bg-cover bg-center bg-[#EFC81A]/20'
+				className='relative flex-1 hidden lg:flex items-center justify-center bg-no-repeat bg-cover bg-center bg-[#EFC81A]/20'
 				style={{
 					backgroundImage: 'url("/images/bg-auth.png")',
 				}}

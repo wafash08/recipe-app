@@ -1,3 +1,4 @@
+import clsx from 'clsx';
 import Container from '../container';
 
 export default function HeroSection() {
@@ -16,7 +17,10 @@ export default function HeroSection() {
 								name='search'
 								id='search'
 								placeholder='Search Recipe'
-								className='w-full h-full rounded pl-14 lg:pl-20 pr-5 placeholder:text-[#2E266F]/60 placeholder:text-lg shadow-md'
+								className={clsx(
+									'w-full h-full rounded pl-14 lg:pl-20 pr-5 placeholder:text-[#2E266F]/60 placeholder:text-lg shadow-md',
+									'focus:outline-[#EFC81A] focus:outline-offset-4 transition-all'
+								)}
 							/>
 							<button
 								type='submit'
