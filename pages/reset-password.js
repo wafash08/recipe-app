@@ -28,7 +28,7 @@ export default function ResetPassword() {
 								id='resetPassword'
 								name='resetPassword'
 								required
-								autofocus
+								autoFocus
 							/>
 						</div>
 

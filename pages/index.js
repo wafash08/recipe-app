@@ -15,7 +15,7 @@ export default function Home({ recipes }) {
 	);
 }
 
-export async function getStaticProps() {
+export async function getServerSideProps() {
 	const recipes = await getRecipeList();
 	return {
 		props: {
