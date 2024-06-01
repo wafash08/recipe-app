@@ -64,7 +64,7 @@ export default function AddRecipe() {
 				<form
 					className='max-w-3xl mx-auto space-y-14'
 					onSubmit={handleAddRecipe}
-					enctype='multipart/form-data'
+					encType='multipart/form-data'
 				>
 					<div className='relative'>
 						<input

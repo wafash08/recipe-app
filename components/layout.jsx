@@ -1,6 +1,8 @@
 import Link from 'next/link';
 import Container from './container';
 import { useRouter } from 'next/router';
+import { usePathname } from 'next/navigation';
+import clsx from 'clsx';
 
 export default function Layout({ children, pagesExcluded }) {
 	const { route } = useRouter();
@@ -22,36 +24,42 @@ export default function Layout({ children, pagesExcluded }) {
 	);
 }
 
+const links = [
+	{
+		href: '/',
+		label: 'Home',
+	},
+	{
+		href: '/recipes/add',
+		label: 'Add Recipe',
+	},
+	{
+		href: '/profile',
+		label: 'Profile',
+	},
+];
+
 function Header() {
+	const pathname = usePathname();
+	console.log('pathname >> ', pathname);
 	return (
 		<header className='fixed top-0 left-0 w-full h-24 flex items-center bg-white/20 z-50 backdrop-blur'>
 			<Container>
 				<nav className='flex justify-between gap-8'>
 					<ul className='flex items-center gap-4 lg:gap-20'>
-						<li>
-							<Link
-								href='/'
-								className='text-lg text-[#2E266F] font-medium hover:underline'
-							>
-								Home
-							</Link>
-						</li>
-						<li>
-							<Link
-								href='/recipes/add'
-								className='text-lg text-[#2E266F] font-medium hover:underline'
-							>
-								Add Recipe
-							</Link>
-						</li>
-						<li>
-							<Link
-								href='/profile'
-								className='text-lg text-[#2E266F] font-medium hover:underline'
-							>
-								Profile
-							</Link>
-						</li>
+						{links.map(({ href, label }) => (
+							<li key={label}>
+								<Link
+									href={href}
+									className={clsx(
+										'text-lg text-[#2E266F] font-medium hover:underline',
+										pathname === href && 'underline'
+									)}
+								>
+									{label}
+								</Link>
+							</li>
+						))}
 					</ul>
 
 					<div>
