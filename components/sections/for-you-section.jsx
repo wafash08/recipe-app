@@ -1,8 +1,8 @@
 import Link from 'next/link';
 import Container from '../container';
-import { FOR_YOU_LIST } from '@/data';
+import { isImageValid } from '@/helpers';
 
-export default function ForYouSection() {
+export default function ForYouSection({ recipes }) {
 	return (
 		<section className='relative mt-14'>
 			<svg
@@ -146,25 +146,26 @@ export default function ForYouSection() {
 				</div>
 
 				<ul className='grid grid-cols-1 md:grid-cols-2 gap-8'>
-					{FOR_YOU_LIST.map(({ id, image, name, slug }) => {
+					{recipes.map(({ id, image, title }) => {
+						const isValid = image ? isImageValid(image) : false;
+
 						return (
 							<li
 								key={id}
-								className='group rounded-2xl h-[400px] md:h-[450px] overflow-hidden flex'
+								className='group rounded-2xl w-full h-[400px] md:h-[450px] overflow-hidden flex'
 							>
-								<Link
-									href={`/recipes/${slug}`}
-									className='block relative w-full'
-								>
+								<Link href={`/recipes/${id}`} className='block w-full relative'>
 									<div className='overflow-hidden h-full w-full'>
 										<img
-											src={image}
-											alt={name}
+											src={isValid ? image : '/images/sugar-salmon.png'}
+											alt={title}
 											className='object-cover h-full w-full group-hover:scale-105 transition-transform duration-500'
 										/>
 									</div>
 									<div className='absolute bottom-0 left-0 h-1/2 w-full bg-gradient-to-b from-transparent to-black/50 flex items-end p-10'>
-										<p className='text-[42px] text-[#FFF5EC]'>{name}</p>
+										<p className='text-4xl text-[#FFF5EC] font-bold capitalize'>
+											{title}
+										</p>
 									</div>
 								</Link>
 							</li>

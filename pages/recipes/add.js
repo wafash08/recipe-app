@@ -1,7 +1,9 @@
 import Container from '@/components/container';
+import { getTokenFromLocalStorage } from '@/helpers';
 import { addRecipe } from '@/lib/recipes';
 import { uploadImage } from '@/lib/upload';
 import clsx from 'clsx';
+import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 
 export default function AddRecipe() {
@@ -11,6 +13,8 @@ export default function AddRecipe() {
 		title: '',
 		description: '',
 	});
+	const token = getTokenFromLocalStorage();
+	const router = useRouter();
 
 	const onSelecFile = e => {
 		if (!e.target.files || e.target.files.length === 0) {
@@ -36,23 +40,18 @@ export default function AddRecipe() {
 	const handleAddRecipe = async e => {
 		try {
 			e.preventDefault();
-			const formData = new FormData(e.target);
-			let uploadRes;
-			for (const [key, value] of formData) {
-				if (key === 'file') {
-					uploadRes = await uploadImage(value);
-				}
-			}
-			if (uploadRes.ok) {
-				const image = await uploadRes.json();
-				formData.append('image', image.data.file_url);
-				const recipe = Object.fromEntries(formData);
-				console.log('recipe >> ', recipe);
-				const res = await addRecipe(recipe);
-				if (res.ok) {
-					console.log('Resep berhasil ditambahkan');
-				}
-			}
+			const form = e.target;
+			const formData = new FormData(form);
+			const imageFormData = new FormData();
+			const file = formData.get('file');
+			const title = formData.get('title');
+			const description = formData.get('description');
+			imageFormData.append('file', file);
+			const imageRes = await uploadImage(imageFormData);
+			const image = imageRes.file_url;
+			await addRecipe({ description, image, title, token });
+			form.reset();
+			router.push('/');
 		} catch (error) {
 			console.log('error from page: ', error);
 		}
