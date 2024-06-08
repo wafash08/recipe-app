@@ -9,7 +9,7 @@ export default function Home({ recipes }) {
 		<>
 			<HeroSection />
 			<ForYouSection recipes={recipes.slice(0, 2)} />
-			<NewRecipeSection />
+			<NewRecipeSection recipe={recipes[0]} />
 			<PopularSection recipes={recipes} />
 		</>
 	);

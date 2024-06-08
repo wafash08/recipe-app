@@ -1,3 +1,6 @@
+import Link from 'next/link';
+import { useSearchParams } from 'next/navigation';
+import clsx from 'clsx';
 import CategoryRecipeList from '@/components/category-recipe-list';
 import Container from '@/components/container';
 import RecipeList from '@/components/recipe-list';
@@ -6,13 +9,8 @@ import {
 	useLikedRecipe,
 	useMyRecipe,
 	useProfile,
-	useRecipebyCategory,
 	useSavedRecipe,
 } from '@/hooks';
-import clsx from 'clsx';
-import Link from 'next/link';
-import { useSearchParams } from 'next/navigation';
-import { useState } from 'react';
 
 const links = [
 	{
@@ -54,16 +52,16 @@ export default function Profile() {
 						<div className='w-40 aspect-square rounded-full overflow-hidden'>
 							<img src='/images/empty-profile.jpg' alt={profile.name} />
 						</div>
-						<h1 className='text-2xl'>{profile.name}</h1>
+						<h1 className='text-2xl font-bold'>{profile.name}</h1>
 					</div>
 				)}
 
 				<nav className='border-b border-b-[#DFDFDF] mb-10'>
-					<ul className='flex flex-col md:flex-row md:items-center gap-4 flex-wrap'>
+					<ul className='flex flex-row md:items-center gap-4 overflow-x-auto p-4'>
 						{links.map(({ href, label }) => {
 							const currentCategory = category === href;
 							return (
-								<li key={href} className='group'>
+								<li key={href} className='group shrink-0'>
 									<Link
 										href={`?category=${href}`}
 										className={clsx(
@@ -135,7 +133,7 @@ function SavedRecipeSection() {
 				</p>
 			);
 		} else {
-			recipeList = <CategoryRecipeList recipes={recipes} />;
+			recipeList = <CategoryRecipeList recipes={recipes} type='saved' />;
 		}
 	}
 
@@ -166,7 +164,7 @@ function LikedRecipeSection() {
 				</p>
 			);
 		} else {
-			recipeList = <CategoryRecipeList recipes={recipes} />;
+			recipeList = <CategoryRecipeList recipes={recipes} type='liked' />;
 		}
 	}
 

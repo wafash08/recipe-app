@@ -10,32 +10,19 @@ export function useRecipe(keyword) {
 	const [error, setError] = useState(null);
 
 	useEffect(() => {
-		let ignore = false;
-
 		fetch(`${RECIPES_URL}?search=${keyword}`)
 			.then(res => res.json())
 			.then(recipes => {
 				setStatus('loading');
-				if (!ignore) {
-					setData(recipes.data);
-				}
+				setData(recipes.data);
 				setTimeout(() => {
 					setStatus('success');
-				}, [300]);
+				}, 200);
 			})
 			.catch(err => {
 				setStatus('failed');
 				setError(err);
-			})
-			.finally(() => {
-				setTimeout(() => {
-					setStatus('idle');
-				}, [500]);
 			});
-
-		return () => {
-			ignore = true;
-		};
 	}, [keyword]);
 
 	return {

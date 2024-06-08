@@ -1,62 +1,108 @@
 import Container from '@/components/container';
 import { RECIPES_URL } from '@/constants/url';
-import { getTokenFromLocalStorage, isImageValid } from '@/helpers';
+import {
+	getLikedRecipeId,
+	getSavedRecipeId,
+	getTokenFromLocalStorage,
+	isImageValid,
+} from '@/helpers';
 import { getRecipeById } from '@/lib/recipes';
 import clsx from 'clsx';
+import { useSearchParams } from 'next/navigation';
+import { useRouter } from 'next/router';
 import { useState } from 'react';
 
 export default function RecipeDetail({ recipe }) {
 	const { title, description, image, id } = recipe;
 	const [comment, setComment] = useState('');
-	const [saved, setSaved] = useState(false);
-	const [liked, setLiked] = useState(false);
+	const { push } = useRouter();
+	const searchParams = useSearchParams();
 	const token = getTokenFromLocalStorage();
+	const liked = searchParams.get('liked');
+	const saved = searchParams.get('saved');
 	const listOfDescription = description.split('\n');
+	const params = new URLSearchParams();
 
 	const handleSave = id => {
 		const headers = new Headers();
 		headers.set('Authorization', `Bearer ${token}`);
 		headers.set('Content-Type', 'application/json');
-		const body = { recipe_id: id };
-		const method = 'POST';
-		fetch(`${RECIPES_URL}/save`, {
-			method,
-			headers,
-			body: JSON.stringify(body),
-		})
-			.then(res => {
-				if (res.ok) {
-					console.log(`${title} berhasil disimpan`);
-					setSaved(true);
-					alert(`${title} berhasil disimpan`);
-				}
+		if (saved) {
+			const method = 'DELETE';
+			fetch(`${RECIPES_URL}/save/${saved}`, {
+				method,
+				headers,
 			})
-			.catch(error => {
-				alert(`${title} gagal disimpan`);
-			});
+				.then(res => res.json())
+				.then(recipe => {
+					console.log('recipe >> ', recipe);
+					push(`/recipes/${id}`, undefined, { scroll: false });
+					console.log(`Batal menyimpan ${title}`);
+				})
+				.catch(error => {
+					alert(`${title} gagal disimpan`);
+				});
+		} else {
+			const body = { recipe_id: id };
+			const method = 'POST';
+			fetch(`${RECIPES_URL}/save`, {
+				method,
+				headers,
+				body: JSON.stringify(body),
+			})
+				.then(res => res.json())
+				.then(recipe => {
+					params.set('saved', recipe.data.id);
+					push(`/recipes/${id}?saved=${recipe.data.id}`, undefined, {
+						scroll: false,
+					});
+					console.log(`${title} berhasil disimpan`);
+				})
+				.catch(error => {
+					alert(`${title} gagal disimpan`);
+				});
+		}
 	};
 
 	const handleLike = id => {
 		const headers = new Headers();
 		headers.set('Authorization', `Bearer ${token}`);
 		headers.set('Content-Type', 'application/json');
-		const body = { recipe_id: id };
-		const method = 'POST';
-		fetch(`${RECIPES_URL}/like`, {
-			method,
-			headers,
-			body: JSON.stringify(body),
-		})
-			.then(res => {
-				if (res.ok) {
-					console.log(`Kamu menyukai ${title}`);
-					setLiked(true);
-					alert(`Kamu menyukai ${title}`);
-				}
+		if (liked) {
+			const method = 'DELETE';
+			fetch(`${RECIPES_URL}/like/${liked}`, {
+				method,
+				headers,
 			})
-			.catch(error => {
-				alert(`Gagal menyukai ${title} karena terdapat error ${error}`);
-			});
+				.then(res => res.json())
+				.then(recipe => {
+					console.log('recipe >> ', recipe);
+					push(`/recipes/${id}`, undefined, { scroll: false });
+					console.log(`Batal menyukai ${title}`);
+				})
+				.catch(error => {
+					alert(`${title} gagal disimpan`);
+				});
+		} else {
+			const body = { recipe_id: id };
+			const method = 'POST';
+			fetch(`${RECIPES_URL}/like`, {
+				method,
+				headers,
+				body: JSON.stringify(body),
+			})
+				.then(res => res.json())
+				.then(recipe => {
+					params.set('liked', recipe.data.id);
+					push(`/recipes/${id}?liked=${recipe.data.id}`, undefined, {
+						scroll: false,
+					});
+					console.log(`${title} berhasil disukai`);
+				})
+				.catch(error => {
+					alert(`${title} gagal disukai`);
+				});
+		}
 	};
 
 	return (
@@ -67,7 +113,7 @@ export default function RecipeDetail({ recipe }) {
 						{title}
 					</h1>
 				</div>
-				<div className='relative w-full max-w-6xl aspect-auto md:aspect-video mx-auto rounded-2xl overflow-hidden mb-16'>
+				<div className='relative w-full max-w-6xl aspect-square md:aspect-video mx-auto rounded-2xl overflow-hidden mb-16'>
 					<img
 						src={isImageValid(image) ? image : '/images/sugar-salmon.png'}
 						alt={title}
@@ -134,8 +180,8 @@ export default function RecipeDetail({ recipe }) {
 				<section className='space-y-8 mb-24 w-full max-w-6xl mx-auto'>
 					<h2 className='text-3xl md:text-5xl text-[#3F3A3A]'>Ingredients</h2>
 					<ul className='list-disc list-inside grid gap-2'>
-						{listOfDescription.map(desc => (
-							<li key={desc} className='text-lg md:text-xl'>
+						{listOfDescription.map((desc, idx) => (
+							<li key={`${desc}-${idx}`} className='text-lg md:text-xl'>
 								{desc}
 							</li>
 						))}
