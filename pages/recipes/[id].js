@@ -1,6 +1,7 @@
+import CommentForm from '@/components/comment-form';
 import Container from '@/components/container';
 import Layout from '@/components/layout';
-import { RECIPES_URL } from '@/constants/url';
+import CommentSection from '@/components/sections/comment-section';
 import { isImageValid } from '@/helpers';
 import {
 	addLikedRecipe,
@@ -23,7 +24,7 @@ export default function RecipeDetail({
 	wasThisRecipeSaved,
 }) {
 	const { title, description, image, id } = recipe;
-	const [comment, setComment] = useState('');
+
 	const [saved, setSaved] = useState(() => (wasThisRecipeSaved ? true : false));
 	const [liked, setLiked] = useState(() => (wasThisRecipeLiked ? true : false));
 	const { push } = useRouter();
@@ -129,7 +130,7 @@ export default function RecipeDetail({
 						<div className='absolute bottom-5 md:bottom-10 right-5 md:right-10 flex items-center gap-4'>
 							<button
 								type='button'
-								className='group w-12 md:w-14 aspect-square rounded-xl bg-[#EFC81A] flex items-center justify-center text-white'
+								className='group w-12 md:w-14 aspect-square rounded-xl bg-white flex items-center justify-center text-[#EFC81A] border border-[#EFC81A]'
 								onClick={() => handleSave(id)}
 							>
 								<span className='sr-only'>Simpan</span>
@@ -141,8 +142,8 @@ export default function RecipeDetail({
 									xmlns='http://www.w3.org/2000/svg'
 									aria-hidden
 									className={clsx(
-										'group-hover:fill-white transition-colors w-6',
-										saved && 'fill-white'
+										'group-hover:fill-[#EFC81A] transition-colors w-6',
+										saved && 'fill-[#EFC81A]'
 									)}
 								>
 									<path
@@ -197,68 +198,10 @@ export default function RecipeDetail({
 
 					<section className='mb-14'>
 						<h2 className='sr-only'>Beri komentar pada resep ini</h2>
-						<form className='space-y-10'>
-							<div className='relative w-full max-w-6xl mx-auto'>
-								<textarea
-									name='comment'
-									id='comment'
-									className={clsx(
-										'peer bg-[#F6F5F4] w-full rounded-lg px-4 py-4',
-										'outline outline-2 outline-transparent outline-offset-0 transition-all',
-										'focus:outline-yellow-400 focus:outline-offset-4',
-										'hover:outline-yellow-400 hover:outline-offset-4'
-									)}
-									required
-									rows={10}
-									value={comment}
-									onChange={e => setComment(e.target.value)}
-								/>
-								<label
-									htmlFor='comment'
-									className={clsx(
-										'absolute top-0 left-0 transition-transform',
-										'peer-focus:-translate-y-10 peer-focus:translate-x-0',
-										comment
-											? '-translate-y-10 translate-x-0'
-											: 'translate-y-4 translate-x-4'
-									)}
-								>
-									Comment
-								</label>
-							</div>
-							<div className='flex justify-start lg:justify-center'>
-								<button
-									type='submit'
-									className={clsx(
-										'w-full max-w-md bg-yellow-400 text-white rounded-md px-4 py-5 transition-all outline',
-										'hover:outline hover:outline-2 hover:outline-offset-4 hover:outline-yellow-400',
-										'focus:outline focus:outline-2 focus:outline-offset-4 focus:outline-yellow-400'
-									)}
-								>
-									Post
-								</button>
-							</div>
-						</form>
+						<CommentForm />
 					</section>
 
-					<section className='w-full max-w-6xl mx-auto space-y-10'>
-						<h2 className='text-3xl md:text-5xl text-[#3F3A3A]'>Comments</h2>
-						<ul>
-							<li className='flex items-start gap-4 md:gap-6 border border-slate-200 p-5 rounded-md'>
-								<div className='w-16 aspect-square rounded-full overflow-hidden'>
-									<img
-										src='/images/avatar-comment.png'
-										alt='Ayudia'
-										className='w-full h-full object-cover'
-									/>
-								</div>
-								<div className='space-y-2'>
-									<p className='text-2xl font-bold'>Ayudia</p>
-									<p>Nice recipe. simple and delicious, thank you.</p>
-								</div>
-							</li>
-						</ul>
-					</section>
+					<CommentSection />
 				</Container>
 			</section>
 		</Layout>
