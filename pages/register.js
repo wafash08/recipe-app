@@ -5,6 +5,7 @@ import clsx from 'clsx';
 import Input from '@/components/input';
 import { register } from '@/lib/auth';
 import CustomCheckbox from '@/components/custom-checkbox';
+import Button from '@/components/button';
 
 export default function Register() {
 	const [agree, setAgree] = useState(false);
@@ -99,16 +100,9 @@ export default function Register() {
 						)}
 
 						<div className='mt-10 space-y-6 text-center'>
-							<button
-								type='submit'
-								className={clsx(
-									'inline-flex items-center justify-center px-5 py-5 bg-[#EFC81A] rounded-md text-white w-full',
-									'disabled:cursor-not-allowed disabled:bg-zinc-200'
-								)}
-								disabled={!agree}
-							>
-								Register Account
-							</button>
+							<Button type='submit' disabled={!agree}>
+								register account
+							</Button>
 							<p className='text-[#8692A6]'>
 								Already have account?{' '}
 								<Link href='/login' className='text-[#EFC81A] hover:underline'>

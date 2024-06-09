@@ -4,6 +4,7 @@ import Link from 'next/link';
 import clsx from 'clsx';
 import Input from '@/components/input';
 import CustomCheckbox from '@/components/custom-checkbox';
+import Button from '@/components/button';
 
 export default function Login() {
 	const [agree, setAgree] = useState(false);
@@ -24,11 +25,11 @@ export default function Login() {
 
 			if (response.ok) {
 				router.push('/');
-			} else {
-				// Handle errors
+			} else if (response.status === 401) {
+				throw 'Email or password is incorrect';
 			}
 		} catch (error) {
-			setError(error.message);
+			setError(error);
 			setTimeout(() => {
 				setError(null);
 			}, 3000);
@@ -78,32 +79,26 @@ export default function Login() {
 								placeholder='Password'
 								required
 							/>
+							{error && (
+								<p className='text-red-500 mt-6' role='alert'>
+									{error}
+								</p>
+							)}
 							<CustomCheckbox agree={agree} onAgree={() => setAgree(!agree)} />
 						</div>
 
-						{error && (
-							<p className='text-red-500 mt-6' role='alert'>
-								{error}
-							</p>
-						)}
-
 						<div className='mt-10 space-y-6 text-center'>
-							<button
-								type='submit'
-								className={clsx(
-									'inline-flex items-center justify-center px-5 py-5 bg-[#EFC81A] rounded-md text-white w-full',
-									'disabled:cursor-not-allowed disabled:bg-zinc-200'
-								)}
-								disabled={!agree}
-							>
-								Login
-							</button>
-							<Link
-								href='/forgot-password'
-								className='block text-[#999999] text-right hover:underline'
-							>
-								Forgot Password ?
-							</Link>
+							<Button type='submit' disabled={!agree}>
+								login
+							</Button>
+							<div className='flex justify-end'>
+								<Link
+									href='/forgot-password'
+									className='inline-block text-[#999999] hover:underline'
+								>
+									Forgot Password ?
+								</Link>
+							</div>
 							<p className='text-[#8692A6]'>
 								Don't have an account?{' '}
 								<Link

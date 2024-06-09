@@ -1,3 +1,4 @@
+import Button from '@/components/button';
 import Container from '@/components/container';
 import Layout from '@/components/layout';
 import { addRecipe } from '@/lib/recipes';
@@ -72,7 +73,7 @@ export default function AddRecipe({ token }) {
 								id='title'
 								className={clsx(
 									'peer bg-[#F6F5F4] w-full rounded-lg px-4 py-4',
-									'outline outline-2 outline-transparent outline-offset-0 transition-all',
+									'outline outline-1 outline-transparent outline-offset-0 transition-all',
 									'focus:outline-yellow-400 focus:outline-offset-4',
 									'hover:outline-yellow-400 hover:outline-offset-4'
 								)}
@@ -99,7 +100,7 @@ export default function AddRecipe({ token }) {
 								id='description'
 								className={clsx(
 									'peer bg-[#F6F5F4] w-full rounded-lg px-4 py-4',
-									'outline outline-2 outline-transparent outline-offset-0 transition-all',
+									'outline outline-1 outline-transparent outline-offset-0 transition-all',
 									'focus:outline-yellow-400 focus:outline-offset-4',
 									'hover:outline-yellow-400 hover:outline-offset-4'
 								)}
@@ -137,9 +138,9 @@ export default function AddRecipe({ token }) {
 								htmlFor='file'
 								className={clsx(
 									'bg-[#F6F5F4] cursor-pointer flex items-center justify-center rounded-lg w-full h-96 transition-all overflow-hidden p-4',
-									'outline outline-2 outline-transparent outline-offset-0',
-									'peer-focus:outline-2 peer-focus:outline-yellow-400 peer-focus:outline-offset-4',
-									'group-hover:outline-2 group-hover:outline-yellow-400 group-hover:outline-offset-4'
+									'outline outline-1 outline-transparent outline-offset-0',
+									'peer-focus:outline-1 peer-focus:outline-yellow-400 peer-focus:outline-offset-4',
+									'group-hover:outline-1 group-hover:outline-yellow-400 group-hover:outline-offset-4'
 								)}
 							>
 								{selectedFile ? (
@@ -180,21 +181,16 @@ export default function AddRecipe({ token }) {
 												strokeLinejoin='round'
 											/>
 										</svg>
-										<p className='text-[#666666]'>Add photo</p>
+										<div className='text-center text-[#666666] text-wrap'>
+											<p>SVG, PNG, JPG or GIF </p>
+											<p>Ukuran maksimal 2MB</p>
+										</div>
 									</div>
 								)}
 							</label>
 						</div>
-						<div className='flex justify-center'>
-							<button
-								type='submit'
-								className={clsx(
-									'w-full max-w-md bg-yellow-400 text-white rounded-md px-4 py-5 transition-all outline',
-									'hover:outline hover:outline-2 hover:outline-offset-4 hover:outline-yellow-400'
-								)}
-							>
-								Post
-							</button>
+						<div className='flex justify-center max-w-md mx-auto'>
+							<Button type='submit'>Simpan</Button>
 						</div>
 					</form>
 				</Container>
