@@ -3,8 +3,10 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import clsx from 'clsx';
 import Input from '@/components/input';
+import CustomCheckbox from '@/components/custom-checkbox';
 
 export default function Login() {
+	const [agree, setAgree] = useState(false);
 	const [error, setError] = useState(null);
 	const router = useRouter();
 
@@ -76,20 +78,7 @@ export default function Login() {
 								placeholder='Password'
 								required
 							/>
-							{/* <div className='flex items-center gap-4'>
-								<input
-									type='checkbox'
-									name='term_and_condition'
-									id='term_and_condition'
-									className='cursor-pointer appearance-none bg-white m-0 rounded-sm'
-								/>
-								<label
-									htmlFor='term_and_condition'
-									className='text-[#696F79] cursor-pointer'
-								>
-									I agree to terms & conditions
-								</label>
-							</div> */}
+							<CustomCheckbox agree={agree} onAgree={() => setAgree(!agree)} />
 						</div>
 
 						{error && (
@@ -102,8 +91,10 @@ export default function Login() {
 							<button
 								type='submit'
 								className={clsx(
-									'inline-flex items-center justify-center px-5 py-5 bg-[#EFC81A] rounded-md text-white w-full'
+									'inline-flex items-center justify-center px-5 py-5 bg-[#EFC81A] rounded-md text-white w-full',
+									'disabled:cursor-not-allowed disabled:bg-zinc-200'
 								)}
+								disabled={!agree}
 							>
 								Login
 							</button>

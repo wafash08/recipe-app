@@ -4,8 +4,10 @@ import { useRouter } from 'next/router';
 import clsx from 'clsx';
 import Input from '@/components/input';
 import { register } from '@/lib/auth';
+import CustomCheckbox from '@/components/custom-checkbox';
 
 export default function Register() {
+	const [agree, setAgree] = useState(false);
 	const [error, setError] = useState(null);
 	const router = useRouter();
 
@@ -87,6 +89,7 @@ export default function Register() {
 								placeholder='Password'
 								required
 							/>
+							<CustomCheckbox agree={agree} onAgree={() => setAgree(!agree)} />
 						</div>
 
 						{error && (
@@ -99,8 +102,10 @@ export default function Register() {
 							<button
 								type='submit'
 								className={clsx(
-									'inline-flex items-center justify-center px-5 py-5 bg-[#EFC81A] rounded-md text-white w-full'
+									'inline-flex items-center justify-center px-5 py-5 bg-[#EFC81A] rounded-md text-white w-full',
+									'disabled:cursor-not-allowed disabled:bg-zinc-200'
 								)}
+								disabled={!agree}
 							>
 								Register Account
 							</button>
