@@ -9,7 +9,7 @@ export default function App({ Component, ...rest }) {
 		<>
 			<Provider store={store}>
 				<Component {...props.pageProps} />
-				<Toaster containerStyle={{ bottom: 40, right: 40 }} />
+				<Toaster containerStyle={{ bottom: 20, right: 20 }} />
 			</Provider>
 		</>
 	);

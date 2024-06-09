@@ -35,6 +35,7 @@ function Header({ hasLoggedIn }) {
 	const { push } = useRouter();
 	const [show, setShow] = useState(true);
 	const [lastScrollY, setLastScrollY] = useState(0);
+	const [openMenu, setOpenMenu] = useState(false);
 
 	useEffect(() => {
 		const controlNavbar = () => {
@@ -72,7 +73,7 @@ function Header({ hasLoggedIn }) {
 		>
 			<Container>
 				<nav className='flex justify-between gap-8'>
-					<ul className='flex items-center gap-4 lg:gap-20'>
+					<ul className='hidden md:flex items-center gap-10 lg:gap-20'>
 						{links.map(({ href, label }) => (
 							<li key={label}>
 								<Link
@@ -87,6 +88,61 @@ function Header({ hasLoggedIn }) {
 							</li>
 						))}
 					</ul>
+
+					<div className='flex items-center md:hidden'>
+						<button
+							type='button'
+							className={clsx(
+								'z-50 flex flex-col items-center justify-center gap-1 w-12 aspect-square rounded-full transition-[outline-offset]',
+								'outline outline-1 outline-offset-0 outline-[#2E266F] hover:outline-offset-2 focus:outline-offset-2'
+							)}
+							onClick={() => setOpenMenu(!openMenu)}
+						>
+							<span className='sr-only'>Buka Menu</span>
+							{openMenu ? (
+								'✖️'
+							) : (
+								<>
+									<div className='w-1 aspect-square bg-[#2E266F] rounded-full' />
+									<div className='w-1 aspect-square bg-[#2E266F] rounded-full' />
+									<div className='w-1 aspect-square bg-[#2E266F] rounded-full' />
+								</>
+							)}
+						</button>
+					</div>
+
+					{/* mobile navbar */}
+					<div
+						className={clsx(
+							'fixed top-full left-10 transition-all md:hidden',
+							openMenu
+								? 'translate-y-0 opacity-100'
+								: '-translate-y-10 appearance-none opacity-0 pointer-events-none'
+						)}
+					>
+						<nav
+							className='bg-white rounded shadow p-6'
+							tabIndex={openMenu ? 0 : -1}
+						>
+							<ul className='space-y-4'>
+								{links.map(({ href, label }) => (
+									<li key={label}>
+										<Link
+											href={href}
+											className={clsx(
+												'text-[#2E266F] hover:underline',
+												pathname === href && 'underline'
+											)}
+										>
+											{label}
+										</Link>
+									</li>
+								))}
+							</ul>
+						</nav>
+
+						<div className='absolute -top-4 left-0 w-0 h-0 border-[20px] border-l-white border-t-transparent border-r-transparent border-b-transparent' />
+					</div>
 
 					<div>
 						{hasLoggedIn ? (

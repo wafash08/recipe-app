@@ -71,6 +71,7 @@ export default function Profile({ token }) {
 												'group-hover:text-black focus:text-black transition-colors',
 												currentCategory && 'underline text-black'
 											)}
+											scroll={false}
 										>
 											{label}
 										</Link>
