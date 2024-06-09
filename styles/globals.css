@@ -14,6 +14,7 @@
 	font-size: 1rem;
 	display: grid;
 	grid-template-columns: 1em auto;
+	align-items: center;
 	gap: 1em;
 	color: #696f79;
 	cursor: pointer;
@@ -29,7 +30,6 @@
 	height: 1.15em;
 	border: 0.15em solid #696f79;
 	border-radius: 0.15em;
-	transform: translateY(0.25em);
 	transition-duration: 120ms;
 	transition-timing-function: ease-in-out;
 	transition-property: background-color, border-color;

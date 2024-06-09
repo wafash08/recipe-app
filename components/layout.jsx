@@ -43,7 +43,7 @@ function Header({ hasLoggedIn }) {
 	};
 
 	return (
-		<header className='fixed top-0 left-0 w-full h-24 flex items-center bg-white/75 z-50 backdrop-blur'>
+		<header className='fixed top-0 left-0 w-full h-24 flex items-center bg-white/50 z-50 backdrop-blur'>
 			<Container>
 				<nav className='flex justify-between gap-8'>
 					<ul className='flex items-center gap-4 lg:gap-20'>

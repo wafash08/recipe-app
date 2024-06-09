@@ -19,8 +19,8 @@ export default function Pagination() {
 						<Link
 							href={`?page=${prevPage}`}
 							className={clsx(
-								'flex items-center justify-center px-6 py-3 rounded-md bg-yellow-400 text-white',
-								'transition-colors group-hover:bg-yellow-500'
+								'bg-yellow-400 text-white flex items-center justify-center px-6 py-3 rounded outline outline-1 outline-yellow-400',
+								'transition-all hover:outline-offset-2 focus:outline-offset-2'
 							)}
 							scroll={false}
 						>
@@ -37,8 +37,8 @@ export default function Pagination() {
 					<Link
 						href={`?page=${nextPage}`}
 						className={clsx(
-							'flex items-center justify-center px-6 py-3 rounded-md bg-yellow-400 text-white',
-							'transition-colors group-hover:bg-yellow-500'
+							'bg-yellow-400 text-white flex items-center justify-center px-6 py-3 rounded outline outline-1 outline-yellow-400',
+							'transition-all hover:outline-offset-2 focus:outline-offset-2'
 						)}
 					>
 						Selanjutnya

@@ -39,9 +39,11 @@ export default function Recipes({ token }) {
 
 					{recipeList}
 
-					<div className='mt-16'>
-						<Pagination />
-					</div>
+					{recipes.length > 0 && (
+						<div className='mt-16'>
+							<Pagination />
+						</div>
+					)}
 				</Container>
 			</section>
 		</Layout>

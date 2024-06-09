@@ -108,7 +108,7 @@ export default function Login() {
 										<span className='sr-only'>Sedang masuk</span>
 									</>
 								) : (
-									'register account'
+									'login'
 								)}
 							</Button>
 							<div className='flex justify-end'>

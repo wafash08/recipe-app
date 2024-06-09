@@ -1,10 +1,10 @@
 import { isImageValid } from '@/helpers';
 import Link from 'next/link';
 
-export default function CategoryRecipeList({ recipes, type }) {
+export default function CategoryRecipeList({ recipes }) {
 	return (
 		<ul className='grid md:grid-cols-2 lg:grid-cols-3 gap-10'>
-			{recipes.map(({ id, recipe_id, recipe }) => {
+			{recipes.map(({ recipe_id, recipe }) => {
 				const { image, title } = recipe;
 				const isValid = image ? isImageValid(image) : false;
 
@@ -14,7 +14,7 @@ export default function CategoryRecipeList({ recipes, type }) {
 						className='group rounded-2xl h-[400px] overflow-hidden flex'
 					>
 						<Link
-							href={`/recipes/${recipe_id}?${type}=${id}`}
+							href={`/recipes/${recipe_id}`}
 							className='block w-full relative'
 						>
 							<div className='overflow-hidden w-full h-full'>

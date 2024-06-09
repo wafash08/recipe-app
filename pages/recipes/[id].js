@@ -1,114 +1,112 @@
 import Container from '@/components/container';
 import Layout from '@/components/layout';
 import { RECIPES_URL } from '@/constants/url';
+import { isImageValid } from '@/helpers';
 import {
-	getLikedRecipeId,
-	getSavedRecipeId,
-	getTokenFromLocalStorage,
-	isImageValid,
-} from '@/helpers';
-import { getRecipeById } from '@/lib/recipes';
+	addLikedRecipe,
+	addSavedRecipe,
+	getLikedRecipe,
+	getRecipeById,
+	getSavedRecipe,
+	removeLikedRecipe,
+	removeSavedRecipe,
+} from '@/lib/recipes';
 import clsx from 'clsx';
-import { useSearchParams } from 'next/navigation';
 import { useRouter } from 'next/router';
 import { useState } from 'react';
+import toast from 'react-hot-toast';
 
-export default function RecipeDetail({ recipe, token }) {
+export default function RecipeDetail({
+	recipe,
+	token,
+	wasThisRecipeLiked,
+	wasThisRecipeSaved,
+}) {
 	const { title, description, image, id } = recipe;
 	const [comment, setComment] = useState('');
+	const [saved, setSaved] = useState(() => (wasThisRecipeSaved ? true : false));
+	const [liked, setLiked] = useState(() => (wasThisRecipeLiked ? true : false));
 	const { push } = useRouter();
-	const searchParams = useSearchParams();
-	const liked = searchParams.get('liked');
-	const saved = searchParams.get('saved');
 	const listOfDescription = description.split('\n');
-	const params = new URLSearchParams();
 
-	const handleSave = id => {
+	const handleSave = async id => {
 		if (!token) {
 			push('/login');
 		} else {
-			const headers = new Headers();
-			headers.set('Authorization', `Bearer ${token}`);
-			headers.set('Content-Type', 'application/json');
-			if (saved) {
-				const method = 'DELETE';
-				fetch(`${RECIPES_URL}/save/${saved}`, {
-					method,
-					headers,
-				})
-					.then(res => res.json())
-					.then(recipe => {
-						console.log('recipe >> ', recipe);
-						push(`/recipes/${id}`, undefined, { scroll: false });
-						console.log(`Batal menyimpan ${title}`);
-					})
-					.catch(error => {
-						alert(`${title} gagal disimpan`);
+			try {
+				if (saved) {
+					await removeSavedRecipe(token, wasThisRecipeSaved.id);
+					setSaved(false);
+					toast(`${title} berhasil dihapus`, {
+						position: 'bottom-right',
+						icon: '🤗',
+						style: { backgroundColor: '#4ade80', color: '#fff' },
 					});
-			} else {
-				const body = { recipe_id: id };
-				const method = 'POST';
-				fetch(`${RECIPES_URL}/save`, {
-					method,
-					headers,
-					body: JSON.stringify(body),
-				})
-					.then(res => res.json())
-					.then(recipe => {
-						params.set('saved', recipe.data.id);
-						push(`/recipes/${id}?saved=${recipe.data.id}`, undefined, {
-							scroll: false,
-						});
-						console.log(`${title} berhasil disimpan`);
-					})
-					.catch(error => {
-						alert(`${title} gagal disimpan`);
+				} else {
+					await addSavedRecipe(token, id);
+					setSaved(true);
+					toast(`${title} berhasil disimpan`, {
+						position: 'bottom-right',
+						icon: '🤗',
+						style: { backgroundColor: '#4ade80', color: '#fff' },
 					});
+				}
+			} catch (error) {
+				console.log('error handleSave > ', error);
+				if (saved) {
+					toast(`Gagal menghapus ${title}`, {
+						position: 'bottom-right',
+						icon: '🤗',
+						style: { backgroundColor: '#ef4444', color: '#fff' },
+					});
+				} else {
+					toast(`Gagal menyimpan ${title}`, {
+						position: 'bottom-right',
+						icon: '🤗',
+						style: { backgroundColor: '#ef4444', color: '#fff' },
+					});
+				}
 			}
 		}
 	};
 
-	const handleLike = id => {
+	const handleLike = async id => {
 		if (!token) {
 			push('/login');
 		} else {
-			const headers = new Headers();
-			headers.set('Authorization', `Bearer ${token}`);
-			headers.set('Content-Type', 'application/json');
-			if (liked) {
-				const method = 'DELETE';
-				fetch(`${RECIPES_URL}/like/${liked}`, {
-					method,
-					headers,
-				})
-					.then(res => res.json())
-					.then(recipe => {
-						console.log('recipe >> ', recipe);
-						push(`/recipes/${id}`, undefined, { scroll: false });
-						console.log(`Batal menyukai ${title}`);
-					})
-					.catch(error => {
-						alert(`${title} gagal disimpan`);
+			try {
+				if (liked) {
+					await removeLikedRecipe(token, wasThisRecipeLiked.id);
+					setLiked(false);
+					toast(`Kamu batal menyukai ${title}`, {
+						position: 'bottom-right',
+						icon: '🤗',
+						style: { backgroundColor: '#4ade80', color: '#fff' },
 					});
-			} else {
-				const body = { recipe_id: id };
-				const method = 'POST';
-				fetch(`${RECIPES_URL}/like`, {
-					method,
-					headers,
-					body: JSON.stringify(body),
-				})
-					.then(res => res.json())
-					.then(recipe => {
-						params.set('liked', recipe.data.id);
-						push(`/recipes/${id}?liked=${recipe.data.id}`, undefined, {
-							scroll: false,
-						});
-						console.log(`${title} berhasil disukai`);
-					})
-					.catch(error => {
-						alert(`${title} gagal disukai`);
+				} else {
+					await addLikedRecipe(token, id);
+					setLiked(true);
+					toast(`Kamu menyukai ${title}`, {
+						position: 'bottom-right',
+						icon: '🤗',
+						style: { backgroundColor: '#4ade80', color: '#fff' },
 					});
+				}
+			} catch (error) {
+				console.log('error handleLike > ', error);
+				if (liked) {
+					toast(`Gagal batal menyukai ${title}`, {
+						position: 'bottom-right',
+						icon: '🤗',
+						style: { backgroundColor: '#ef4444', color: '#fff' },
+					});
+				} else {
+					toast(`Gagal menyukai ${title}`, {
+						position: 'bottom-right',
+						icon: '🤗',
+						style: { backgroundColor: '#ef4444', color: '#fff' },
+					});
+				}
 			}
 		}
 	};
@@ -267,26 +265,33 @@ export default function RecipeDetail({ recipe, token }) {
 	);
 }
 
-// export async function getStaticPaths() {
-// 	const paths = await getRecipePaths();
-// 	return {
-// 		fallback: false,
-// 		paths: paths,
-// 	};
-// }
-
-// export async function getStaticProps({ params }) {
-// 	const { id } = params;
-// 	const recipe = await getRecipeById(id);
-// 	return {
-// 		props: { recipe },
-// 	};
-// }
 export async function getServerSideProps({ params, req }) {
 	const token = req.cookies.token || '';
+
+	if (!token) {
+		return {
+			redirect: {
+				permanent: false,
+				destination: '/login',
+			},
+			props: {},
+		};
+	}
 	const { id } = params;
 	const recipe = await getRecipeById(id);
+	const likedRecipeList = await getLikedRecipe(token);
+	const savedRecipeList = await getSavedRecipe(token);
+
+	const wasThisRecipeLiked =
+		likedRecipeList.find(recipe => recipe.recipe_id === id) || null;
+	const wasThisRecipeSaved =
+		savedRecipeList.find(recipe => recipe.recipe_id === id) || null;
+
+	// console.log('likedRecipe >> ', likedRecipeList);
+	// console.log('savedRecipeList >> ', savedRecipeList);
+	console.log('wasThisRecipeLiked >> ', wasThisRecipeLiked);
+	console.log('wasThisRecipeSaved >> ', wasThisRecipeSaved);
 	return {
-		props: { recipe, token },
+		props: { recipe, token, wasThisRecipeLiked, wasThisRecipeSaved },
 	};
 }
