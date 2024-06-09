@@ -135,3 +135,20 @@ export default function Login() {
 		</div>
 	);
 }
+
+export async function getServerSideProps({ req }) {
+	const token = req.cookies.token || '';
+	if (token) {
+		return {
+			redirect: {
+				permanent: false,
+				destination: '/',
+			},
+			props: {},
+		};
+	}
+
+	return {
+		props: {},
+	};
+}

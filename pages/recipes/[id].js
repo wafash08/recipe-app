@@ -210,7 +210,6 @@ export default function RecipeDetail({
 
 export async function getServerSideProps({ params, req }) {
 	const token = req.cookies.token || '';
-
 	if (!token) {
 		return {
 			redirect: {
@@ -232,8 +231,8 @@ export async function getServerSideProps({ params, req }) {
 
 	// console.log('likedRecipe >> ', likedRecipeList);
 	// console.log('savedRecipeList >> ', savedRecipeList);
-	console.log('wasThisRecipeLiked >> ', wasThisRecipeLiked);
-	console.log('wasThisRecipeSaved >> ', wasThisRecipeSaved);
+	// console.log('wasThisRecipeLiked >> ', wasThisRecipeLiked);
+	// console.log('wasThisRecipeSaved >> ', wasThisRecipeSaved);
 	return {
 		props: { recipe, token, wasThisRecipeLiked, wasThisRecipeSaved },
 	};

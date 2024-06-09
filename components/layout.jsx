@@ -3,6 +3,7 @@ import Container from './container';
 import { useRouter } from 'next/router';
 import { usePathname } from 'next/navigation';
 import clsx from 'clsx';
+import { useEffect, useState } from 'react';
 
 export default function Layout({ children, hasLoggedIn }) {
 	return (
@@ -32,6 +33,26 @@ const links = [
 function Header({ hasLoggedIn }) {
 	const pathname = usePathname();
 	const { push } = useRouter();
+	const [show, setShow] = useState(true);
+	const [lastScrollY, setLastScrollY] = useState(0);
+
+	useEffect(() => {
+		const controlNavbar = () => {
+			if (window.scrollY > lastScrollY) {
+				setShow(false);
+			} else {
+				setShow(true);
+			}
+
+			setLastScrollY(window.scrollY);
+		};
+
+		window.addEventListener('scroll', controlNavbar);
+
+		return () => {
+			window.removeEventListener('scroll', controlNavbar);
+		};
+	}, [lastScrollY]);
 
 	const logout = async () => {
 		try {
@@ -43,7 +64,12 @@ function Header({ hasLoggedIn }) {
 	};
 
 	return (
-		<header className='fixed top-0 left-0 w-full h-24 flex items-center bg-white/50 z-50 backdrop-blur'>
+		<header
+			className={clsx(
+				'fixed top-0 left-0 w-full h-24 flex items-center bg-white/50 z-50 backdrop-blur transition-transform duration-500',
+				show ? 'translate-y-0' : '-translate-y-full'
+			)}
+		>
 			<Container>
 				<nav className='flex justify-between gap-8'>
 					<ul className='flex items-center gap-4 lg:gap-20'>
