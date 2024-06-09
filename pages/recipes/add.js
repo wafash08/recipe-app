@@ -49,9 +49,9 @@ export default function AddRecipe({ token }) {
 			imageFormData.append('file', file);
 			const imageRes = await uploadImage(imageFormData);
 			const image = imageRes.file_url;
-			await addRecipe({ description, image, title, token });
+			const recipe = await addRecipe({ description, image, title, token });
 			form.reset();
-			router.push('/');
+			router.push(`/recipes/${recipe.id}`);
 		} catch (error) {
 			console.log('error from page: ', error);
 		}
