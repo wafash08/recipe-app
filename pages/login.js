@@ -3,7 +3,6 @@ import { useRouter } from 'next/router';
 import Link from 'next/link';
 import clsx from 'clsx';
 import Input from '@/components/input';
-import { login } from '@/lib/auth';
 
 export default function Login() {
 	const [error, setError] = useState(null);
@@ -13,12 +12,18 @@ export default function Login() {
 		try {
 			e.preventDefault();
 			const formData = new FormData(e.target);
-			const user = Object.fromEntries(formData);
-			const response = await login(user);
+			const email = formData.get('email');
+			const password = formData.get('password');
+			const response = await fetch('/api/auth/login', {
+				method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({ email, password }),
+			});
+
 			if (response.ok) {
-				const user = await response.json();
-				localStorage.setItem('token', user.data.token);
 				router.push('/');
+			} else {
+				// Handle errors
 			}
 		} catch (error) {
 			setError(error.message);

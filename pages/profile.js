@@ -11,6 +11,7 @@ import {
 	useProfile,
 	useSavedRecipe,
 } from '@/hooks';
+import Layout from '@/components/layout';
 
 const links = [
 	{
@@ -27,65 +28,67 @@ const links = [
 	},
 ];
 
-export default function Profile() {
-	const { data: profile, status: profileStatus } = useProfile();
+export default function Profile({ token }) {
+	const { data: profile, status: profileStatus } = useProfile(token);
 	const searchParams = useSearchParams();
 	const category = searchParams.get('category') ?? 'mine';
 
 	let categoryRecipeList = null;
 
 	if (category === 'mine') {
-		categoryRecipeList = <MineRecipeSection />;
+		categoryRecipeList = <MineRecipeSection token={token} />;
 	} else if (category === 'saved') {
-		categoryRecipeList = <SavedRecipeSection />;
+		categoryRecipeList = <SavedRecipeSection token={token} />;
 	} else if (category === 'liked') {
-		categoryRecipeList = <LikedRecipeSection />;
+		categoryRecipeList = <LikedRecipeSection token={token} />;
 	}
 
 	return (
-		<section className='py-40 bg-white'>
-			<Container>
-				{profileStatus === 'loading' ? (
-					<ProfileSkeleton />
-				) : (
-					<div className='flex flex-col items-center gap-6 mb-20'>
-						<div className='w-40 aspect-square rounded-full overflow-hidden'>
-							<img src='/images/empty-profile.jpg' alt={profile.name} />
+		<Layout hasLoggedIn={!!token}>
+			<section className='py-40 bg-white'>
+				<Container>
+					{profileStatus === 'loading' ? (
+						<ProfileSkeleton />
+					) : (
+						<div className='flex flex-col items-center gap-6 mb-20'>
+							<div className='w-40 aspect-square rounded-full overflow-hidden'>
+								<img src='/images/empty-profile.jpg' alt={profile.name} />
+							</div>
+							<h1 className='text-2xl font-bold'>{profile.name}</h1>
 						</div>
-						<h1 className='text-2xl font-bold'>{profile.name}</h1>
-					</div>
-				)}
+					)}
 
-				<nav className='border-b border-b-[#DFDFDF] mb-10'>
-					<ul className='flex flex-row md:items-center gap-4 overflow-x-auto p-4'>
-						{links.map(({ href, label }) => {
-							const currentCategory = category === href;
-							return (
-								<li key={href} className='group shrink-0'>
-									<Link
-										href={`?category=${href}`}
-										className={clsx(
-											'inline-flex items-center justify-center w-full px-6 py-4 text-lg text-[#666666]',
-											'group-hover:text-black focus:text-black transition-colors',
-											currentCategory && 'underline text-black'
-										)}
-									>
-										{label}
-									</Link>
-								</li>
-							);
-						})}
-					</ul>
-				</nav>
+					<nav className='border-b border-b-[#DFDFDF] mb-10'>
+						<ul className='flex flex-row md:items-center gap-4 overflow-x-auto p-4'>
+							{links.map(({ href, label }) => {
+								const currentCategory = category === href;
+								return (
+									<li key={href} className='group shrink-0'>
+										<Link
+											href={`?category=${href}`}
+											className={clsx(
+												'inline-flex items-center justify-center w-full px-6 py-4 text-lg text-[#666666]',
+												'group-hover:text-black focus:text-black transition-colors',
+												currentCategory && 'underline text-black'
+											)}
+										>
+											{label}
+										</Link>
+									</li>
+								);
+							})}
+						</ul>
+					</nav>
 
-				{categoryRecipeList}
-			</Container>
-		</section>
+					{categoryRecipeList}
+				</Container>
+			</section>
+		</Layout>
 	);
 }
 
-function MineRecipeSection() {
-	const { data: recipes, status } = useMyRecipe();
+function MineRecipeSection({ token }) {
+	const { data: recipes, status } = useMyRecipe(token);
 	let recipeList = null;
 
 	if (status === 'loading') {
@@ -115,8 +118,8 @@ function MineRecipeSection() {
 	);
 }
 
-function SavedRecipeSection() {
-	const { data: recipes, status } = useSavedRecipe();
+function SavedRecipeSection({ token }) {
+	const { data: recipes, status } = useSavedRecipe(token);
 	let recipeList = null;
 
 	if (status === 'loading') {
@@ -146,8 +149,8 @@ function SavedRecipeSection() {
 	);
 }
 
-function LikedRecipeSection() {
-	const { data: recipes, status } = useLikedRecipe();
+function LikedRecipeSection({ token }) {
+	const { data: recipes, status } = useLikedRecipe(token);
 	let recipeList = null;
 
 	if (status === 'loading') {
@@ -175,4 +178,13 @@ function LikedRecipeSection() {
 			{recipeList}
 		</section>
 	);
+}
+
+export async function getServerSideProps({ req }) {
+	const token = req.cookies.token || '';
+	return {
+		props: {
+			token,
+		},
+	};
 }

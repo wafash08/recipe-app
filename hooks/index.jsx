@@ -32,11 +32,10 @@ export function useRecipe(keyword) {
 	};
 }
 
-export function useProfile() {
+export function useProfile(token) {
 	const [status, setStatus] = useState('idle');
 	const [data, setData] = useState([]);
 	const [error, setError] = useState(null);
-	const token = getTokenFromLocalStorage();
 
 	useEffect(() => {
 		let ignore = false;
@@ -70,11 +69,10 @@ export function useProfile() {
 	};
 }
 
-export function useMyRecipe() {
+export function useMyRecipe(token) {
 	const [status, setStatus] = useState('idle');
 	const [data, setData] = useState([]);
 	const [error, setError] = useState(null);
-	const token = getTokenFromLocalStorage();
 
 	useEffect(() => {
 		async function loadRecipes() {
@@ -98,11 +96,10 @@ export function useMyRecipe() {
 	};
 }
 
-export function useSavedRecipe() {
+export function useSavedRecipe(token) {
 	const [status, setStatus] = useState('idle');
 	const [data, setData] = useState([]);
 	const [error, setError] = useState(null);
-	const token = getTokenFromLocalStorage();
 
 	useEffect(() => {
 		async function loadRecipes() {
@@ -126,11 +123,10 @@ export function useSavedRecipe() {
 	};
 }
 
-export function useLikedRecipe() {
+export function useLikedRecipe(token) {
 	const [status, setStatus] = useState('idle');
 	const [data, setData] = useState([]);
 	const [error, setError] = useState(null);
-	const token = getTokenFromLocalStorage();
 
 	useEffect(() => {
 		async function loadRecipes() {

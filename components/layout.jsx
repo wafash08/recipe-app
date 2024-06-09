@@ -3,22 +3,8 @@ import Container from './container';
 import { useRouter } from 'next/router';
 import { usePathname } from 'next/navigation';
 import clsx from 'clsx';
-import { getTokenFromLocalStorage } from '@/helpers';
 
-export default function Layout({ children, pagesExcluded }) {
-	const { route } = useRouter();
-	const token = getTokenFromLocalStorage();
-
-	if (pagesExcluded.includes(route)) {
-		return (
-			<main className='font-airbnb bg-white min-h-screen flex flex-col w-full'>
-				{children}
-			</main>
-		);
-	}
-
-	const hasLoggedIn = token !== null;
-
+export default function Layout({ children, hasLoggedIn }) {
 	return (
 		<main className='font-airbnb bg-[#FFF5EC] min-h-screen flex flex-col w-full'>
 			<Header hasLoggedIn={hasLoggedIn} />
@@ -45,6 +31,17 @@ const links = [
 
 function Header({ hasLoggedIn }) {
 	const pathname = usePathname();
+	const { push } = useRouter();
+
+	const logout = async () => {
+		try {
+			fetch('/api/auth/logout', { method: 'POST' });
+			push('/', undefined, { scroll: false });
+		} catch (error) {
+			console.log('error logout', error);
+		}
+	};
+
 	return (
 		<header className='fixed top-0 left-0 w-full h-24 flex items-center bg-white/20 z-50 backdrop-blur'>
 			<Container>
@@ -67,19 +64,22 @@ function Header({ hasLoggedIn }) {
 
 					<div>
 						{hasLoggedIn ? (
-							<Link href='/profile'>
-								<div className='w-14 aspect-square rounded-full relative'>
-									<div className='w-14 aspect-square rounded-full overflow-hidden'>
-										<img
-											src='/images/empty-profile.jpg'
-											alt='Your profile'
-											className='w-full h-full object-cover'
-										/>
+							<div className='flex items-center gap-5'>
+								<Link href='/profile'>
+									<div className='w-14 aspect-square rounded-full relative'>
+										<div className='w-14 aspect-square rounded-full overflow-hidden'>
+											<img
+												src='/images/empty-profile.jpg'
+												alt='Your profile'
+												className='w-full h-full object-cover'
+											/>
+										</div>
+										<div className='w-4 h-4 rounded-full bg-[#31A24C] absolute right-0 top-0' />
 									</div>
-									<div className='w-4 h-4 rounded-full bg-[#31A24C] absolute right-0 top-0' />
-								</div>
-								<span className='sr-only'>Your Profile</span>
-							</Link>
+									<span className='sr-only'>Your Profile</span>
+								</Link>
+								<button onClick={logout}>Logout</button>
+							</div>
 						) : (
 							<Link href='/login'>Login</Link>
 						)}
