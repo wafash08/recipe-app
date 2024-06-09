@@ -43,7 +43,7 @@ function Header({ hasLoggedIn }) {
 	};
 
 	return (
-		<header className='fixed top-0 left-0 w-full h-24 flex items-center bg-white/20 z-50 backdrop-blur'>
+		<header className='fixed top-0 left-0 w-full h-24 flex items-center bg-white/75 z-50 backdrop-blur'>
 			<Container>
 				<nav className='flex justify-between gap-8'>
 					<ul className='flex items-center gap-4 lg:gap-20'>
@@ -78,10 +78,26 @@ function Header({ hasLoggedIn }) {
 									</div>
 									<span className='sr-only'>Your Profile</span>
 								</Link>
-								<button onClick={logout}>Logout</button>
+								<button
+									onClick={logout}
+									className={clsx(
+										'bg-red-400 text-white flex items-center justify-center px-4 py-2 rounded outline outline-1 outline-red-400',
+										'transition-all hover:outline-offset-2 focus:outline-offset-2'
+									)}
+								>
+									Logout
+								</button>
 							</div>
 						) : (
-							<Link href='/login'>Login</Link>
+							<Link
+								href='/login'
+								className={clsx(
+									'bg-yellow-400 text-white flex items-center justify-center px-4 py-2 rounded outline outline-1 outline-yellow-400',
+									'transition-all hover:outline-offset-2 focus:outline-offset-2'
+								)}
+							>
+								Login
+							</Link>
 						)}
 					</div>
 				</nav>

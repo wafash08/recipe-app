@@ -1,35 +1,58 @@
 import Container from '@/components/container';
+import Layout from '@/components/layout';
+import Pagination from '@/components/pagination';
 import RecipeList from '@/components/recipe-list';
 import SearchBar from '@/components/search-bar';
 import { RecipeListSkeleton } from '@/components/skeleton';
 import { useRecipe } from '@/hooks';
 import { useSearchParams } from 'next/navigation';
 
-export default function Recipes() {
+export default function Recipes({ token }) {
 	const searchParams = useSearchParams();
 	const search = searchParams.get('search');
-	const { data: recipes, status } = useRecipe(search);
+	const page = searchParams.get('page') || 1;
+	const { data: recipes, status } = useRecipe(Number(page), search);
+
+	let recipeList = null;
+	if (status === 'loading') {
+		recipeList = <RecipeListSkeleton />;
+	} else if (status === 'success') {
+		if (recipes.length > 0) {
+			recipeList = <RecipeList recipes={recipes} />;
+		} else {
+			recipeList = (
+				<p className='text-center text-xl'>
+					Tidak ada hasil untuk{' '}
+					<strong className='font-bold'>"{search}"</strong>
+				</p>
+			);
+		}
+	}
 
 	return (
-		<section className='py-32'>
-			<Container>
-				<div className='w-full max-w-xl mx-auto mb-20'>
-					<SearchBar />
-				</div>
+		<Layout hasLoggedIn={!!token}>
+			<section className='py-32'>
+				<Container>
+					<div className='w-full max-w-xl mx-auto mb-20'>
+						<SearchBar />
+					</div>
 
-				{search ? (
-					status === 'loading' ? (
-						<RecipeListSkeleton />
-					) : recipes.length > 0 ? (
-						<RecipeList recipes={recipes} />
-					) : (
-						<p className='text-center text-xl'>
-							Tidak ada hasil untuk{' '}
-							<strong className='font-bold'>"{search}"</strong>
-						</p>
-					)
-				) : null}
-			</Container>
-		</section>
+					{recipeList}
+
+					<div className='mt-16'>
+						<Pagination />
+					</div>
+				</Container>
+			</section>
+		</Layout>
 	);
+}
+
+export async function getServerSideProps({ req }) {
+	const token = req.cookies.token || '';
+	return {
+		props: {
+			token,
+		},
+	};
 }

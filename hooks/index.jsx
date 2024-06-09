@@ -1,29 +1,32 @@
 import { RECIPES_URL } from '@/constants/url';
-import { getTokenFromLocalStorage } from '@/helpers';
 import { getProfile } from '@/lib/profile';
-import { getLikedRecipe, getMyRecipe, getSavedRecipe } from '@/lib/recipes';
+import {
+	getLikedRecipe,
+	getMyRecipe,
+	getRecipes,
+	getSavedRecipe,
+} from '@/lib/recipes';
 import { useEffect, useState } from 'react';
 
-export function useRecipe(keyword) {
+export function useRecipe(page, keyword) {
 	const [status, setStatus] = useState('idle');
 	const [data, setData] = useState([]);
 	const [error, setError] = useState(null);
 
 	useEffect(() => {
-		fetch(`${RECIPES_URL}?search=${keyword}`)
-			.then(res => res.json())
-			.then(recipes => {
+		async function loadRecipes() {
+			try {
 				setStatus('loading');
+				const recipes = await getRecipes(page, keyword);
 				setData(recipes.data);
-				setTimeout(() => {
-					setStatus('success');
-				}, 200);
-			})
-			.catch(err => {
+				setStatus('success');
+			} catch (error) {
 				setStatus('failed');
-				setError(err);
-			});
-	}, [keyword]);
+				setError(error);
+			}
+		}
+		loadRecipes();
+	}, [page, keyword]);
 
 	return {
 		data,
