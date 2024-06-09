@@ -16,3 +16,12 @@ export function ProfileSkeleton() {
 		</div>
 	);
 }
+
+export function LikeAndSaveSkeleton() {
+	return (
+		<div className='flex items-center gap-4 animate-pulse'>
+			<div className='w-12 md:w-14 aspect-square rounded-xl bg-slate-200' />
+			<div className='w-12 md:w-14  aspect-square rounded-xl bg-slate-200' />
+		</div>
+	);
+}

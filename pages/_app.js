@@ -1,11 +1,16 @@
-import '@/styles/globals.css';
+import { Provider } from 'react-redux';
 import { Toaster } from 'react-hot-toast';
+import { wrapper } from '@/configs/redux/store';
+import '@/styles/globals.css';
 
-export default function App({ Component, pageProps }) {
+export default function App({ Component, ...rest }) {
+	const { store, props } = wrapper.useWrappedStore(rest);
 	return (
 		<>
-			<Component {...pageProps} />
-			<Toaster containerStyle={{ bottom: 40, right: 40 }} />
+			<Provider store={store}>
+				<Component {...props.pageProps} />
+				<Toaster containerStyle={{ bottom: 40, right: 40 }} />
+			</Provider>
 		</>
 	);
 }

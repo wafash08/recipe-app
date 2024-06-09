@@ -10,6 +10,15 @@ module.exports = {
 			fontFamily: {
 				airbnb: 'Airbnb Cereal App',
 			},
+			keyframes: {
+				scale: {
+					'0%, 100%': { transform: 'scale(100%)' },
+					'50%': { transform: 'scale(110%)' },
+				},
+			},
+			animation: {
+				scale: 'scale 500ms ease-in-out 1',
+			},
 		},
 	},
 	plugins: [],
