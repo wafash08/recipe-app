@@ -51,8 +51,38 @@ export default function Profile({ token }) {
 						<ProfileSkeleton />
 					) : (
 						<div className='flex flex-col items-center gap-6 mb-20'>
-							<div className='w-40 aspect-square rounded-full overflow-hidden'>
-								<img src='/images/empty-profile.jpg' alt={profile.name} />
+							<div className='relative'>
+								<div className='w-40 aspect-square rounded-full overflow-hidden'>
+									<img src='/images/empty-profile.jpg' alt={profile.name} />
+								</div>
+								<button
+									type='button'
+									className='absolute -bottom-4 -right-4 z-10 text-[#EFC81A] flex items-center justify-center w-12 aspect-square rounded-full'
+								>
+									<span className='sr-only'>Edit profil kamu</span>
+									<svg
+										width='20'
+										height='20'
+										viewBox='0 0 20 20'
+										fill='none'
+										xmlns='http://www.w3.org/2000/svg'
+									>
+										<path
+											d='M10 19H19'
+											stroke='currentColor'
+											strokeWidth='2'
+											strokeLinecap='round'
+											strokeLinejoin='round'
+										/>
+										<path
+											d='M14.5 2.49998C14.8978 2.10216 15.4374 1.87866 16 1.87866C16.2786 1.87866 16.5544 1.93353 16.8118 2.04014C17.0692 2.14674 17.303 2.303 17.5 2.49998C17.697 2.69697 17.8532 2.93082 17.9598 3.18819C18.0665 3.44556 18.1213 3.72141 18.1213 3.99998C18.1213 4.27856 18.0665 4.55441 17.9598 4.81178C17.8532 5.06915 17.697 5.303 17.5 5.49998L5 18L1 19L2 15L14.5 2.49998Z'
+											stroke='currentColor'
+											strokeWidth='2'
+											strokeLinecap='round'
+											strokeLinejoin='round'
+										/>
+									</svg>
+								</button>
 							</div>
 							<h1 className='text-2xl font-bold'>{profile.name}</h1>
 						</div>
@@ -106,7 +136,7 @@ function MineRecipeSection({ token }) {
 				</p>
 			);
 		} else {
-			recipeList = <RecipeList recipes={recipes} />;
+			recipeList = <RecipeList recipes={recipes} isMine />;
 		}
 	}
 
