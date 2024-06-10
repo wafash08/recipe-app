@@ -136,7 +136,7 @@ function MineRecipeSection({ token }) {
 				</p>
 			);
 		} else {
-			recipeList = <RecipeList recipes={recipes} isMine />;
+			recipeList = <RecipeList recipes={recipes} isMine token={token} />;
 		}
 	}
 
