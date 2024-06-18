@@ -10,7 +10,7 @@ export default async function handler(req, res) {
 			sameSite: 'strict',
 		});
 		res.setHeader('Set-Cookie', cookie);
-		res.status(200).json({ success: true });
+		res.status(200).json({ success: true, data: { user: null } });
 	} catch (error) {
 		console.log(error);
 	}

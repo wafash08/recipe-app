@@ -7,7 +7,7 @@ import { getRecipes } from '@/lib/recipes';
 
 export default function Home({ recipes, token }) {
 	return (
-		<Layout hasLoggedIn={!!token}>
+		<Layout hasLoggedIn={token !== ''}>
 			<HeroSection />
 			<ForYouSection recipes={recipes.slice(0, 2)} />
 			<NewRecipeSection recipe={recipes[0]} />

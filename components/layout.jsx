@@ -57,7 +57,7 @@ function Header({ hasLoggedIn }) {
 
 	const logout = async () => {
 		try {
-			fetch('/api/auth/logout', { method: 'POST' });
+			await fetch('/api/auth/logout', { method: 'POST' });
 			push('/', undefined, { scroll: false });
 		} catch (error) {
 			console.log('error logout', error);
@@ -93,14 +93,26 @@ function Header({ hasLoggedIn }) {
 						<button
 							type='button'
 							className={clsx(
-								'z-50 flex flex-col items-center justify-center gap-1 w-12 aspect-square rounded-full transition-[outline-offset]',
-								'outline outline-1 outline-offset-0 outline-[#2E266F] hover:outline-offset-2 focus:outline-offset-2'
+								'z-50 flex flex-col items-center justify-center gap-1 w-12 aspect-square rounded-full text-[#2E266F]'
 							)}
 							onClick={() => setOpenMenu(!openMenu)}
 						>
 							<span className='sr-only'>Buka Menu</span>
 							{openMenu ? (
-								'✖️'
+								<svg
+									xmlns='http://www.w3.org/2000/svg'
+									fill='none'
+									viewBox='0 0 24 24'
+									strokeWidth={1.5}
+									stroke='currentColor'
+									className='size-6'
+								>
+									<path
+										strokeLinecap='round'
+										strokeLinejoin='round'
+										d='M6 18 18 6M6 6l12 12'
+									/>
+								</svg>
 							) : (
 								<>
 									<div className='w-1 aspect-square bg-[#2E266F] rounded-full' />
@@ -148,8 +160,8 @@ function Header({ hasLoggedIn }) {
 						{hasLoggedIn ? (
 							<div className='flex items-center gap-5'>
 								<Link href='/profile'>
-									<div className='w-14 aspect-square rounded-full relative'>
-										<div className='w-14 aspect-square rounded-full overflow-hidden'>
+									<div className='w-12 aspect-square rounded-full relative'>
+										<div className='w-12 aspect-square rounded-full overflow-hidden'>
 											<img
 												src='/images/empty-profile.jpg'
 												alt='Your profile'
