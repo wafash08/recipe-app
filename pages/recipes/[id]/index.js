@@ -27,7 +27,7 @@ export default function RecipeDetail({ recipe, token }) {
 
 	useEffect(() => {
 		dispatch(recipeLoaded(token, id));
-	}, []);
+	}, [dispatch, token, id]);
 
 	const handleSave = async id => {
 		if (!token) {

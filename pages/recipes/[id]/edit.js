@@ -32,7 +32,7 @@ export default function EditRecipe({ recipe, token }) {
 		setPreview(objectUrl);
 
 		return () => URL.revokeObjectURL(objectUrl);
-	}, [selectedFile]);
+	}, [selectedFile, recipe.image]);
 
 	const handleUpdateRecipe = async e => {
 		try {

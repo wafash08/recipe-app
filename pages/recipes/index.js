@@ -22,8 +22,8 @@ export default function Recipes({ token }) {
 		} else {
 			recipeList = (
 				<p className='text-center text-xl'>
-					Tidak ada hasil untuk{' '}
-					<strong className='font-bold'>"{search}"</strong>
+					<span>Tidak ada hasil untuk </span>
+					<strong className='font-bold'>&quot;{search}&quot;</strong>
 				</p>
 			);
 		}

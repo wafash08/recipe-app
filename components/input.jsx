@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 
-export default function ({ label, id, ...props }) {
+export default function Input({ label, id, ...props }) {
 	return (
 		<div className='flex flex-col gap-3'>
 			<label htmlFor={id} className='text-[#696F79]'>

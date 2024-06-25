@@ -97,7 +97,7 @@ export default function Register() {
 			<section className='flex-1 px-10 py-20'>
 				<div className='text-center mb-12'>
 					<h1 className='text-[#EFC81A] text-3xl font-bold mb-5'>
-						Let's Get Started!
+						Let&apos;s Get Started!
 					</h1>
 					<p className='text-[#8692A6] text-lg'>
 						Create new account to access all features
@@ -204,7 +204,7 @@ export default function Register() {
 								)}
 							</Button>
 							<p className='text-[#8692A6]'>
-								Already have account?{' '}
+								<span>Already have account? </span>
 								<Link href='/login' className='text-[#EFC81A] hover:underline'>
 									Log in Here
 								</Link>
