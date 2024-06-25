@@ -37,3 +37,5 @@ next-env.d.ts
 
 __todos__
 __features__
+
+.env
