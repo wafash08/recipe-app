@@ -196,7 +196,7 @@ export default function EditRecipe({ recipe, token }) {
 							</label>
 						</div>
 						<div className='flex justify-center max-w-md mx-auto'>
-							<Button type='submit'>Ubah</Button>
+							<Button type='submit'>Save</Button>
 						</div>
 					</form>
 				</Container>

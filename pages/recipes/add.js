@@ -190,7 +190,7 @@ export default function AddRecipe({ token }) {
 							</label>
 						</div>
 						<div className='flex justify-center max-w-md mx-auto'>
-							<Button type='submit'>Simpan</Button>
+							<Button type='submit'>Save</Button>
 						</div>
 					</form>
 				</Container>
