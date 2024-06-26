@@ -1,40 +1,190 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Mama Recipe
+
+<div align="center">
+  <img src="./public/images/logo.png">
+  <br>
+  <br>
+  <a href="https://wafash-mama-recipe.vercel.app/">View Demo</a>
+</div>
+
+## Table of Contents
+
+- [Project Description](#project-description)
+- [Technologies Used](#technologies-used)
+- [Project Structure](#project-structure)
+- [Project Repository](#project-repository)
+- [Project Screenshots](#project-screenshots)
+- [Getting Started](#getting-started)
+- [Contributions](#contributions)
+- [License](#license)
+- [Contact](#contact)
+- [Related Projects](#related-projects)
+
+## Project Description
+
+MamaRecipe is the perfect application for food enthusiasts. With MamaRecipe, you can explore a wide variety of recipes from around the world, as well as create and share your own culinary creations. Discover cooking inspiration, follow easy steps, and enjoy delicious dishes every day. Join the MamaRecipe community and share your cooking expertise with other users.
+
+## Technologies Used
+
+This website is built with following technologies:
+
+- NextJS
+- Redux
+- Tailwind CSS
+- Vercel
+
+By leveraging these technologies, MamaRecipe ensures a robust, scalable, and maintainable web application that delivers a great user experience.
+
+## Project Structure
+
+```
+└── recipe-app
+      ├── components                         # Contains reusable React components.
+      ├── config                             # Contains configuration files.
+      ├── constants                          # Contains constant values used throughout the application.
+      ├── data                               # Contains data files.
+      ├── helpers                            # Contains helper functions and utilities.
+      ├── hooks                              # Contains custom React hooks.
+      ├── lib                                # Contains library functions and modules.
+      ├── pages                              # Contains Next.js pages, which correspond to routes in the application.
+      ├── public                             # Contains public assets such as images and fonts.
+      ├── screenshots                        # Contains screenshots of the application.
+      ├── styles                             # Contains global styles and Tailwind CSS styles.
+      ├── .env                               # Contains environment variables.
+      ├── .eslintrc.json                     # Configuration file for ESLint.
+      ├── .gitignore                         # Specifies files and directories that should be ignored by Git.
+      ├── jsconfig.json                      # Configuration file for JavaScript project settings.
+      ├── middleware.js                      # Contains middleware functions.
+      ├── next.config.mjs                    # Configuration file for Next.js.
+      ├── package-lock.json                  # Describes the exact dependency tree generated, ensuring reproducible builds.
+      ├── package.json                       # Contains project dependencies and scripts.
+      ├── postcss.config.mjs                 # Configuration file for PostCSS.
+      ├── README.md                          # The project documentation file.
+      ├── tailwind.config.js                 # Configuration file for Tailwind CSS.
+```
+
+This structure helps in keeping the project organized and maintainable, making it easier to navigate and manage the codebase.
+
+## Project Repository
+
+This project consists of both frontend and backend repositories. You can find the links to both below:
+
+- Backend Repository: [MamaRecipe Backend](https://github.com/wafash08/mama-recipe-be)
+- Live Demo: [MamaRecipe Live Demo](https://wafash-mama-recipe.vercel.app/)
+
+Visit the backend repository for server-side code and API details. The live demo link will take you to the deployed version of the Peworld application.
+
+## Project Screenshots
 
 ## Getting Started
 
-First, run the development server:
+To get a local copy up and running, follow these simple steps.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+### Installation
+
+1. Clone the repository
+
+```sh
+git clone https://github.com/wafash08/recipe-app
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+2. Navigate to the project directory:
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+```sh
+cd recipe-app
+```
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+3. Install the dependencies:
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+```sh
+npm install
+```
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+4. Start the development server:
 
-## Learn More
+```sh
+npm run dev
+```
 
-To learn more about Next.js, take a look at the following resources:
+This will start the development server and open the application in your default web browser. If it doesn't, you can access it at http://localhost:3000.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Contributions
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+Any contribution to Peworld is welcomed! If you have an idea for a new feature or have found a bug, please follow these steps to contribute:
 
-## Deploy on Vercel
+### How to Contribute
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+1. Fork the Repository:
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Fork the repository to your own GitHub account by clicking the "Fork" button at the top right of the repository page.
+
+2. Clone the Forked Repository:
+
+```sh
+git clone https://github.com/your-username/recipe-app.git
+```
+
+3. Create a New Branch:
+
+Create a new branch for your feature or bug fix:
+
+```sh
+git checkout -b feature/YourFeatureName
+```
+
+or
+
+```sh
+git checkout -b bugfix/YourBugFixName
+```
+
+4. Make Your Changes:
+
+Make the necessary changes in your local development environment.
+
+5. Commit Your Changes:
+
+Commit your changes with a descriptive commit message:
+
+```sh
+git add .
+git commit -m "Add Your Descriptive Commit Message"
+```
+
+6. Push to Your Fork:
+
+Push your changes to your forked repository:
+
+```sh
+git push origin feature/YourFeatureName
+```
+
+or
+
+```sh
+git push origin bugfix/YourBugFixName
+```
+
+7. Open a Pull Request:
+
+Open a pull request to the main repository by navigating to the original repository and clicking the "New Pull Request" button. Ensure your pull request includes a clear description of the changes and why they are necessary.
+
+### Issues
+
+If you encounter any issues, please open an issue in the GitHub repository. Provide as much detail as possible to help us resolve the problem quickly.
+
+## License
+
+## Contact
+
+If you have any questions, suggestions, or just want to get in touch, feel free to contact Me!
+
+- Email: saefulhaqwafa@gmail.com
+- Linkedin: [linkedin.com/in/m-wafa-saeful-haq](https://www.linkedin.com/in/m-wafa-saeful-haq)
+- Twitter: [@saefulhaqwafa](https://x.com/saefulhaqwafa)
+
+## Related Projects
+
+- [Peworld](https://github.com/wafash08/recipe-app) 🧑‍🍳
+- [Blanja](https://github.com/echestratus/BlanjaWebsiteProject) 🛒
+- [Peworld BE](https://github.com/wafash08/be-peworld)
