@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react';
 
 export default function Layout({ children, hasLoggedIn }) {
 	return (
-		<main className='font-airbnb bg-[#FFF5EC] min-h-screen flex flex-col w-full'>
+		<main className='font-airbnb bg-[#FFF5EC] min-h-screen flex flex-col w-full overflow-x-hidden'>
 			<Header hasLoggedIn={hasLoggedIn} />
 			{children}
 			<Footer />
