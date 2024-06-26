@@ -76,6 +76,39 @@ Visit the backend repository for server-side code and API details. The live demo
 
 ## Project Screenshots
 
+<table>
+  <tr>
+    <td>Register</td>
+    <td>Login</td>
+  </tr>
+  <tr>
+    <td><img src="./screenshots/mr-register.png" style="width:100%;"></td>
+    <td><img src="./screenshots/mr-login.png" style="width:100%;"></td>
+  </tr>
+  <tr>
+    <td>Home</td>
+    <td>Recipe Detail</td>
+  </tr>
+  <tr>
+    <td><img src="./screenshots/mr-home.png" style="width:100%;"></td>
+    <td><img src="./screenshots/mr-detail-recipe.png" style="width:100%;"></td>
+  </tr>
+  <tr>
+    <td>Add Recipe</td>
+    <td>Edit Recipe</td>
+  </tr>
+  <tr>
+    <td><img src="./screenshots/mr-add-recipe.png" style="width:100%;"></td>
+    <td><img src="./screenshots/mr-edit-recipe.png" style="width:100%;"></td>
+  </tr>
+  <tr>
+    <td>Profile</td>
+  </tr>
+  <tr>
+    <td><img src="./screenshots/mr-profile.png" style="width:100%;"></td>
+  </tr>
+</table>
+
 ## Getting Started
 
 To get a local copy up and running, follow these simple steps.
@@ -174,6 +207,8 @@ Open a pull request to the main repository by navigating to the original reposit
 If you encounter any issues, please open an issue in the GitHub repository. Provide as much detail as possible to help us resolve the problem quickly.
 
 ## License
+
+This project is licensed under the MIT License. For more details, please refer to the [LICENSE](./LICENSE) file.
 
 ## Contact
 
