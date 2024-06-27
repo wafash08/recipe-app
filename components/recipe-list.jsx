@@ -20,10 +20,13 @@ export default function RecipeList({ recipes, isMine = false, token }) {
 				router.reload();
 			}
 		} catch (error) {
-			toast(`Ups, "${title}" gagal dihapus`, {
-				position: 'bottom-right',
-				style: { backgroundColor: '#ef4444', color: '#fff' },
-			});
+			toast(
+				`Other user might save/like "${title}", thus you can't delete this recipe`,
+				{
+					position: 'bottom-right',
+					style: { backgroundColor: '#ef4444', color: '#fff' },
+				}
+			);
 		}
 	};
 
