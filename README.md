@@ -141,6 +141,17 @@ npm run dev
 
 This will start the development server and open the application in your default web browser. If it doesn't, you can access it at http://localhost:3000.
 
+### Test User Accounts
+
+Access pre-configured user accounts for testing purposes. Use these accounts to simulate different scenarios.
+
+```json
+{
+  "email": "carlgustav@gmail.com",
+  "password": "asdfhjkl"
+}
+```
+
 ## Contributions
 
 Any contribution to Peworld is welcomed! If you have an idea for a new feature or have found a bug, please follow these steps to contribute:
