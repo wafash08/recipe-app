@@ -18,7 +18,6 @@
 - [Contributions](#contributions)
 - [License](#license)
 - [Contact](#contact)
-- [Related Projects](#related-projects)
 
 ## Project Description
 
@@ -228,9 +227,3 @@ If you have any questions, suggestions, or just want to get in touch, feel free 
 - Email: saefulhaqwafa@gmail.com
 - Linkedin: [linkedin.com/in/m-wafa-saeful-haq](https://www.linkedin.com/in/m-wafa-saeful-haq)
 - Twitter: [@saefulhaqwafa](https://x.com/saefulhaqwafa)
-
-## Related Projects
-
-- [Peworld](https://github.com/wafash08/recipe-app) 🧑‍🍳
-- [Blanja](https://github.com/echestratus/BlanjaWebsiteProject) 🛒
-- [Peworld BE](https://github.com/wafash08/be-peworld)
