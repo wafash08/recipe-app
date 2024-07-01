@@ -7,26 +7,28 @@ import CommentForm from '@/components/comment-form';
 import Container from '@/components/container';
 import Layout from '@/components/layout';
 import CommentSection from '@/components/sections/comment-section';
-import {
-	likedIdAdded,
-	likedIdRemoved,
-	recipeLoaded,
-	savedIdAdded,
-	savedIdRemoved,
-} from '@/configs/redux/actions/recipe-action';
 import { isImageValid } from '@/helpers';
 import { getRecipeById } from '@/lib/recipes';
+import {
+	addLikedId,
+	addSavedId,
+	fetchRecipes,
+	removeLikedId,
+	removeSavedId,
+	selectLikedId,
+	selectSavedId,
+} from '@/configs/redux/features/recipes/recipes-slice';
 
 export default function RecipeDetail({ recipe, token }) {
 	const { title, description, image, id } = recipe;
 	const { push } = useRouter();
 	const listOfDescription = description.split('\n');
 	const dispatch = useDispatch();
-	const { data } = useSelector(state => state.recipe);
-	const { liked_id, saved_id } = data;
+	const saved_id = useSelector(selectSavedId);
+	const liked_id = useSelector(selectLikedId);
 
 	useEffect(() => {
-		dispatch(recipeLoaded(token, id));
+		dispatch(fetchRecipes({ token, recipe_id: id }));
 	}, [dispatch, token, id]);
 
 	const handleSave = async id => {
@@ -35,14 +37,14 @@ export default function RecipeDetail({ recipe, token }) {
 		} else {
 			try {
 				if (saved_id) {
-					dispatch(savedIdRemoved(token, saved_id));
+					dispatch(removeSavedId({ token, saved_id }));
 					toast(`${title} berhasil dihapus`, {
 						position: 'bottom-right',
 						icon: '🤗',
 						style: { backgroundColor: '#4ade80', color: '#fff' },
 					});
 				} else {
-					dispatch(savedIdAdded(token, id));
+					dispatch(addSavedId({ token, recipe_id: id }));
 					toast(`${title} berhasil disimpan`, {
 						position: 'bottom-right',
 						icon: '🤗',
@@ -74,14 +76,14 @@ export default function RecipeDetail({ recipe, token }) {
 		} else {
 			try {
 				if (liked_id) {
-					dispatch(likedIdRemoved(token, liked_id));
+					dispatch(removeLikedId({ token, liked_id }));
 					toast(`Kamu batal menyukai ${title}`, {
 						position: 'bottom-right',
 						icon: '🤗',
 						style: { backgroundColor: '#4ade80', color: '#fff' },
 					});
 				} else {
-					dispatch(likedIdAdded(token, id));
+					dispatch(addLikedId({ token, recipe_id: id }));
 					toast(`Kamu menyukai ${title}`, {
 						position: 'bottom-right',
 						icon: '🤗',

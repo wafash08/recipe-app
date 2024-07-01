@@ -1,16 +1,11 @@
-import {
-	applyMiddleware,
-	legacy_createStore as createStore,
-	compose,
-} from 'redux';
-import { rootReducer } from './reducers';
-import { thunk } from 'redux-thunk';
-import logger from 'redux-logger';
 import { createWrapper } from 'next-redux-wrapper';
+import { configureStore } from '@reduxjs/toolkit';
+import { recipesReducer } from './features/recipes/recipes-slice';
 
-export const store = createStore(
-	rootReducer,
-	compose(applyMiddleware(thunk, logger))
-);
+export const store = configureStore({
+	reducer: {
+		recipes: recipesReducer,
+	},
+});
 const makeStore = () => store;
 export const wrapper = createWrapper(makeStore);
