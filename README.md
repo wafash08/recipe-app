@@ -21,7 +21,7 @@
 
 ## Project Description
 
-MamaRecipe is the perfect application for food enthusiasts. With MamaRecipe, you can explore a wide variety of recipes from around the world, as well as create and share your own culinary creations. Discover cooking inspiration, follow easy steps, and enjoy delicious dishes every day. Join the MamaRecipe community and share your cooking expertise with other users.
+MamaRecipe is the perfect website for food enthusiasts. With MamaRecipe, you can explore a wide variety of recipes from around the world, as well as create and share your own culinary creations. Discover cooking inspiration, follow easy steps, and enjoy delicious dishes every day. Join the MamaRecipe community and share your cooking expertise with other users.
 
 ## Technologies Used
 
